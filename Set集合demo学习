@@ -1,0 +1,45 @@
+    
+    
+    public static class Person {
+
+        private String name;
+
+        public Person(String ccc) {}
+
+    }
+
+    public static void main(String[] args) {
+        HashSet<String> aa = new HashSet<String>();
+        aa.add("aaa");
+        aa.add("aaa");// 相同常量池的地址一样
+
+        HashSet<Person> a = new HashSet<Person>();
+        a.add(new Person("ccc"));
+        a.add(new Person("ccc")); // 不同对象 地址不一样
+
+        System.out.println(aa.size() + "," + a.size()); // 输出1,2 底层去重复 实现的hashCode比较 所以正常输出
+    }
+    
+    
+    
+    
+    public static class Person {
+
+        private String name;
+
+        public Person(String ccc) {}
+
+    }
+
+    public static void main(String[] args) {
+        TreeSet<String> aa = new TreeSet<String>();
+        aa.add("aaa");
+        aa.add("aaa");
+
+        TreeSet<Person> a = new TreeSet<Person>();
+        a.add(new Person("ccc"));
+        a.add(new Person("ccc"));
+
+        System.out.println(aa.size() + "," + a.size()); // 运行时异常 java.lang.ClassCastException 
+        // 原因 TreeSet 底层去重复实现了是CompareTo方法 由于Person对象未实现Comparable接口导致 运行时去寻找CompareTo方法导致类型转换异常
+    }
